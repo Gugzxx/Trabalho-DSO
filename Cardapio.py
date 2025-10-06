@@ -1,9 +1,9 @@
 class Cardapio:
     def __init__(self, entradas: list, principais: list, sobremesas: list, bebidas: list):
-        self.__entradas = entradas
-        self.__principais = principais
-        self.__sobremesas = sobremesas
-        self.__bebidas = bebidas
+        self.__entradas = None
+        self.__principais = None
+        self.__sobremesas = None
+        self.__bebidas = None
 
     if isinstance(entradas, list):
         self.__entradas = entradas
