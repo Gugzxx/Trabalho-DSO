@@ -18,7 +18,7 @@ def cancelar_reserva(self):
 def consultar_reserva(self):
   ...
 
-def lista_reserva(self)
+def lista_reserva(self):
   ...
 
 def finalizar(self):
