@@ -1,8 +1,8 @@
 class Usuario:
     def __init__(self, nome: str, telefone: str, email: str):
-        self.__nome = nome
-        self.__telefone = telefone
-        self.__email = email
+        self.__nome = None
+        self.__telefone = None
+        self.__email = None
 
         if isinstance(nome, str):
             self.__nome = nome
