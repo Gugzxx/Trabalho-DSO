@@ -3,6 +3,7 @@ from Funcionario import Funcionario
 from Usuario import Usuario
 from Mesa import Mesa
 from Pagamento import Pagamento
+from StatusReserva import StatusReserva
 
 class Reserva:
     def __init__(self, id_reserva: int, data: str, hora: str, qtd_pessoas: int, status: StatusReserva):
