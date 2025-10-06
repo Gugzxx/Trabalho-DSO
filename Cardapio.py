@@ -5,6 +5,15 @@ class Cardapio:
         self.__sobremesas = sobremesas
         self.__bebidas = bebidas
 
+    if isinstance(entradas, list):
+        self.__entradas = entradas
+    if isinstance(principais, list):
+        self.__principais = principais
+    if isinstance(sobremesas, list):
+        self.__sobremesas = sobremesas
+    if isinstance(bebidas, list):
+        self.__bebidas = bebidas
+
     @property
     def entradas(self):
         return self.__entradas
