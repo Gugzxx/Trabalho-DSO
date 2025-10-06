@@ -6,17 +6,35 @@ from Pagamento import Pagamento
 from StatusReserva import StatusReserva
 
 class Reserva:
-    def __init__(self, id_reserva: int, data: str, hora: str, qtd_pessoas: int, status: StatusReserva):
-        self.__id_reserva = id_reserva
-        self.__data = data
-        self.__hora = hora
-        self.__qtd_pessoas = qtd_pessoas
-        self.__status = status
-
+    def __init__(self, id_reserva: int, data: str, hora: str, qtd_pessoas: int, status: StatusReserva, cliente: Cliente, mesa: Mesa, usuario_responsavel: Funcionario, pagamento: Pagamento):
+        self.__id_reserva = None
+        self.__data = None
+        self.__hora = None
+        self.__qtd_pessoas = None
+        self.__status = None
         self.__cliente = None
         self.__mesa = None
         self.__usuario_responsavel = None
         self.__pagamento = None
+
+        if isinstance(id_reserva, int) and id_reserva > 0:
+            self.__id_reserva = id_reserva
+        if isinstance(data, str) and len(data) > 0:
+            self.__data = data
+        if isinstance(hora, str) and len(hora) > 0:
+            self.__hora = hora
+        if isinstance(qtd_pessoas, int) and qtd_pessoas > 0:
+            self.__qtd_pessoas = qtd_pessoas
+        if isinstance(status, StatusReserva) and len(status) > 0:
+            self.__status = status
+        if isinstance(cliente, Cliente) and len(cliente) > 0:
+            self.__data = cliente
+        if isinstance(mesa, Mesa) and mesa > 0:
+            self.__hora = mesa
+        if isinstance(usuario_responsavel, Funcionario) and len(usuario_responsavel) > 0:
+            self.__qtd_pessoas = usuario_responsavel
+        if isinstance(pagamento, Pagamento) and pagamento > 0:
+            self.__status = pagamento
 
     @property
     def id_reserva(self):
@@ -59,8 +77,8 @@ class Reserva:
         return self.__status
 
     @status.setter
-    def status(self, status: str):
-        if isinstance(status, str) and len(status) > 0:
+    def status(self, status: StatusReserva):
+        if isinstance(status, StatusReserva) and len(status) > 0:
             self.__status = status
 
     @property
@@ -87,7 +105,7 @@ class Reserva:
 
     @usuario_responsavel.setter
     def usuario_responsavel(self, usuario: Usuario):
-        if isinstance(usuario, (Funcionario, Cliente)):
+        if isinstance(usuario, Funcionario):
             self.__usuario_responsavel = usuario
 
     @property
