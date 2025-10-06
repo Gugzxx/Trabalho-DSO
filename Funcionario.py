@@ -3,7 +3,7 @@ from Usuario import Usuario
 class Funcionario(Usuario):
     def __init__(self, nome: str, telefone: str, email: str, cargo: str):
         super().__init__(nome, telefone, email)
-        self.__cargo = cargo
+        self.__cargo = None
 
     if isinstance(cargo, str):
         self.__cargo = cargo
