@@ -1,8 +1,17 @@
 class Pagamento:
     def __init__(self, forma_pagamento: str, valor: float, data_pagamento: str, status: str):
+        self.__forma_pagamento = None
+        self.__valor = None
+        self.__data_pagamento = None
+        self.__status = None
+
+    if isinstance(forma_pagamento, str):
         self.__forma_pagamento = forma_pagamento
+    if isinstance(valor, float):
         self.__valor = valor
+    if isinstance(data_pagamento, str):
         self.__data_pagamento = data_pagamento
+    if isinstance(status, str):
         self.__status = status
 
     @property
