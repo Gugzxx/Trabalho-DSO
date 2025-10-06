@@ -50,7 +50,9 @@ class Restaurante:
     def incluir_mesa():
         if isinstance(mesa, Mesa) and mesa is not in mesas:
             self.__mesas.append(mesa)
+        return mesas
 
     def excluir_mesa():
         if isinstance(mesa, Mesa) and mesa is in mesas:
             self.__mesas.remove(mesa)
+        return mesas
