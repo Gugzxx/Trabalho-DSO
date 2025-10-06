@@ -5,7 +5,7 @@ from Mesa import Mesa
 from Pagamento import Pagamento
 
 class Reserva:
-    def __init__(self, id_reserva: int, data: str, hora: str, qtd_pessoas: int, status: str):
+    def __init__(self, id_reserva: int, data: str, hora: str, qtd_pessoas: int, status: StatusReserva):
         self.__id_reserva = id_reserva
         self.__data = data
         self.__hora = hora
