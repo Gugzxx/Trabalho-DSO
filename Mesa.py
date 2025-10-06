@@ -1,8 +1,14 @@
 class Mesa:
     def __init__(self, numero: int, qtd_lugares: int):
-        self.__numero = numero
-        self.__qtd_lugares = qtd_lugares
+        self.__numero = None
+        self.__qtd_lugares = None
         self.__status = "Disponível"
+
+    if isinstance(numero, int):
+        self.__numero = numero
+    if isinstance(qtd_lugares, int):
+        self.__qtd_lugares = qtd_lugares
+
 
     @property
     def numero(self):
