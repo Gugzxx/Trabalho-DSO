@@ -1,3 +1,10 @@
+from Cliente import Cliente
+from Funcionario import Funcionario
+from Usuario import Usuario
+from Mesa import Mesa
+from Pagamento import Pagamento
+from StatusReserva import StatusReserva
+
 class ControladorReserva:
   def __init__(self):
     self.__tela_reserva : TelaReserva(self)
