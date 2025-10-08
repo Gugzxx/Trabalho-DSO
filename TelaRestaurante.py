@@ -29,5 +29,19 @@ class TelaRestaurante:
           
       elif opcao == "3":
         mesas = self.__controlador.listar_mesas()
-        print
+        print("Mesas cadasttradas: ")
+        for mesas in mesas:
+          print(f"Mesa {mesa.numero} - Lugares: {mesa.qtd_lugares}")
+
+      elif opcao == "0":
+        print("Saindo do Menu.")
+        break
+     
+      else:
+        print("Opção Inválida.")
+
+
+      
+
+              
                        
