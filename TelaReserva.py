@@ -3,6 +3,7 @@ from AbstractTela import AbstractTela
 class TelaReserva:
   def __init__(self, controlador):
     self.__controlador = controlador
+    
   def solicita_id_reserva(self):
     return self.le_num_inteiro("Informe o ID da reserva: ")
    
