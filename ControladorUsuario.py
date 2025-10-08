@@ -17,7 +17,7 @@ class ControladorUsuario:
   def anotar_reserva(self, usuario, dados_reserva):
     return self.__controlador_reserva.solicitar_reserva(usuario, dados_reserva)
 
-  def alterar_reserva(self, usuario, id_reserva, novoa_dados):
+  def alterar_reserva(self, usuario, id_reserva, novos_dados):
     return self.__controlador_reserva.alterar_reserva(usuario, id_reserva, novos_dados)
     
   
