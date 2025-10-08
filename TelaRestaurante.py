@@ -15,13 +15,28 @@ class TelaRestaurante:
       opcao = input("Escolha: ")
 
       if opcao == "1":
-        numero = int(input("Número da mesa: ")
-        qtd_lugares = int(input("Quantidade de lugares: ")
+        while True:
+          try:
+            numero = int(input("Número da mesa: ")
+            break
+          except ValueError:
+            print("Digite um número inteiro válido.")
+        while True:
+          try:
+            qtd_lugares = int(input("Quantidade de lugares: ")
+            break
+          except ValueError:
+            print("Digite um número inteiro válido." 
         self.__controlador.incluir_mesa(numero, qtd_lugares)
         print("Mesa incluída com suceesso!")
 
       elif opcao == "2":
-        numero = int(input("Número da mesa: ")
+        while True:
+          try:
+              numero = int(input("Número da mesa a excluir: "))
+              break
+          except ValueError:
+              print("Digite um número inteiro válido.")
         if self.__controlador.excluir_mesa(numero):
           print("Mesa exclúida com sucesso!")
         else:
