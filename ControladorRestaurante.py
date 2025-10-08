@@ -3,7 +3,7 @@ from Mesa import Mesa
 
 class ControladorRestaurante:
   def __init__(self, restaurante):
-      self.__restaurante = restaurante
+    self.__restaurante = restaurante
     
   def incluir_mesa(self, numero, qtd_lugares):
     nova_mesa = Mesa(numero, qtd_lugares)
