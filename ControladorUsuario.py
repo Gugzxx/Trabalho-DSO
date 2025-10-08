@@ -16,7 +16,13 @@ class ControladorUsuario:
 
   def alterar_reserva(self, usuario, id_reserva, novos_dados):
     return self.__controlador_reserva.alterar_reserva(usuario, id_reserva, novos_dados)
-    
+
+  def buscar_usuario_por_email(self, email):
+    for usuario in self.__usuarios:
+      if usuario.email == email:
+        return usuario
+      return None
+          
   
 
 
