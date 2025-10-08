@@ -11,10 +11,7 @@ class ControladorUsuario:
     self.__usuarios.append(novo_usuario)
     return novo_usuario
 
-  def listar_usuarios(self):
-    return self.__usuarios
-
-  def anotar_reserva(self, usuario, dados_reserva):
+  def solicitar_reserva(self, usuario, dados_reserva):
     return self.__controlador_reserva.solicitar_reserva(usuario, dados_reserva)
 
   def alterar_reserva(self, usuario, id_reserva, novos_dados):
