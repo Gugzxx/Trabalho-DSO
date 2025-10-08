@@ -5,6 +5,7 @@ class ControladorFuncionario:
     def __init__(self, controlador_reserva):
         self.__controlador_reserva = controlador_reserva
         self.__funcionarios = []
+        self.__tela_funcionario = TelaFuncionario(self)
 
     def cadastrar_funcionario(self, nome, cargo):
         funcionario = Funcionario(nome, cargo)
