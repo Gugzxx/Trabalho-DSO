@@ -5,14 +5,14 @@ class Cardapio:
         self.__sobremesas = None
         self.__bebidas = None
 
-    if isinstance(entradas, list):
-        self.__entradas = entradas
-    if isinstance(principais, list):
-        self.__principais = principais
-    if isinstance(sobremesas, list):
-        self.__sobremesas = sobremesas
-    if isinstance(bebidas, list):
-        self.__bebidas = bebidas
+        if isinstance(entradas, list):
+            self.__entradas = entradas
+        if isinstance(principais, list):
+            self.__principais = principais
+        if isinstance(sobremesas, list):
+            self.__sobremesas = sobremesas
+        if isinstance(bebidas, list):
+            self.__bebidas = bebidas
 
     @property
     def entradas(self):
@@ -48,3 +48,4 @@ class Cardapio:
     @bebidas.setter
     def bebidas(self, bebidas: list):
         if isinstance(bebidas, list):
+            self.__bebidas = bebidas
