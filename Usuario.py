@@ -10,7 +10,7 @@ class Usuario:
             self.__telefone = telefone
         if isinstance(email, str):
             self.__email = email
-
+    
     @property
     def nome(self):
         return self.__nome
