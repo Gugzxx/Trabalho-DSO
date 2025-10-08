@@ -2,6 +2,7 @@ class ControladorReserva:
   def __init__(self):
     self.__tela_reserva = TelaReserva(self)
     self.__reservas = []
+    self.__id_reserva = 1
 
   def inicia(self):
     self.abre_tela_inicial()
