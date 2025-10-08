@@ -16,3 +16,6 @@ class ControladorFuncionario:
 
     def alterar_reserva(self, funcionario, id_reserva, novos_dados):
         return self.__controlador_reserva.alterar_reserva(funcionario, id_reserva, novos_dados)
+
+    def listar_funcionarios(self):
+        return self.__funcionarios
