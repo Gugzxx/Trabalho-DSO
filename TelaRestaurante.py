@@ -5,7 +5,7 @@ class TelaRestaurante:
   def __init__(self, controlador):
     self.__controlador = controlador
 
-  def mostrs_tela_opcoes(self):
+  def mostra_tela_opcoes(self):
     while True:
       print("/n=== Menu Restaurante ===")
       print("1 - Incluir Mesa")
