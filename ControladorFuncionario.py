@@ -7,8 +7,8 @@ class ControladorFuncionario:
         self.__funcionarios = []
         self.__tela_funcionario = TelaFuncionario(self)
 
-    def cadastrar_funcionario(self, nome, cargo):
-        funcionario = Funcionario(nome, cargo)
+    def cadastrar_funcionario(self, nome, email, telefone, cargo):
+        funcionario = Funcionario(nome, email, telefone, cargo)
         self.__funcionarios.append(funcionario)
         return funcionario
 
