@@ -13,8 +13,10 @@ class Restaurante:
             self.__telefone = telefone
         if isinstance(endereco, str):
             self.__endereco = endereco
-        if isinstance(mesa, Mesa):
-            self.__mesas.append(mesa)
+        if isinstance(mesas, list):
+            for mesa in mesas:
+                if isinstance(mesa, Mesa):
+                    self.__mesas.append(mesa)
 
     @property
     def nome(self):
@@ -30,7 +32,7 @@ class Restaurante:
         return self.__telefone
 
     @telefone.setter
-    def nome(self, telefone: str):
+    def telefone(self, telefone: str):
         if isinstance(telefone, str):
             self.__telefone = telefone
 
@@ -47,12 +49,12 @@ class Restaurante:
     def mesas(self):
         return self.__mesas
 
-    def incluir_mesa():
-        if isinstance(mesa, Mesa) and mesa is not in mesas:
+    def incluir_mesa(self, mesa: Mesa):
+        if isinstance(mesa, Mesa) and mesa not in self.__mesas:
             self.__mesas.append(mesa)
-        return mesas
+        return self.__mesas
 
-    def excluir_mesa():
-        if isinstance(mesa, Mesa) and mesa is in mesas:
+    def excluir_mesa(self, mesa: Mesa):
+        if isinstance(mesa, Mesa) and mesa in self.__mesas:
             self.__mesas.remove(mesa)
-        return mesas
+        return self.__mesas
