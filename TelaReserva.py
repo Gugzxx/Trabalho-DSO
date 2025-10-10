@@ -20,19 +20,43 @@ class TelaReserva:
         
       
         if opcao == "1":
-                 self.__controlador.solicitar_reserva()
+                 data = input("Data da reserva (DD/MM/AAAA): ")
+                 hora = input("Hora da reserva (HH:MM): ")
+                 while True:
+                     try:
+                         qtd_pessoas = int(input("Quantidade de pessoas: "))
+                         break
+                     except ValueError:
+                         print("Digite um número inteiro válido.")
+                 while True:
+                     try:
+                         mesa = int(input("Número da mesa: "))
+                         break
+                     except ValueError:
+                         print("Digite um número inteiro válido.")
+                 dados = {
+                     "data": data,
+                     "hora": hora,
+                     "qtd_pessoas": qtd_pessoas,
+                     "mesa": mesa
+                 }
+                 
+                 self.__controlador.solicitar_reserva(dados)
                  print("Reserva solicitada com sucesso!")
 
         elif opcao == "2":
-                  self.__controlador.confirmar_reserva()
+                  id_reserva = input("Informe o ID da reserva a ser confirmada: ")
+                  self.__controlador.confirmar_reserva(id_reserva)
                   print("Reserva confirmada com sucesso!")
 
         elif opcao == "3":
-                  self.__controlador.cancelar_reserva()
+                  id_reserva = input("Informe o ID da reserva a ser cancelada: ")
+                  self.__controlador.cancelar_reserva(id_reserva)
                   print("Reserva cancelada com sucesso!")
 
         elif opcao == "4":
-                  self.__controlador.consultar_reserva()
+                  id_reserva = input("Informe o ID da reserva a ser consultada: ")
+                  self.__controlador.consultar_reserva(id_reserva)
                   print("Consulta realizada com sucesso!")
         
         elif opcao == "5":
