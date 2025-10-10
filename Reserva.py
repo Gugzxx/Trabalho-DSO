@@ -17,19 +17,19 @@ class Reserva:
         self.__usuario_responsavel = None
         self.__pagamento = None
 
-        if isinstance(id_reserva, int) and id_reserva > 0:
+        if isinstance(id_reserva, int):
             self.__id_reserva = id_reserva
-        if isinstance(data, str) and len(data) > 0:
+        if isinstance(data, str):
             self.__data = data
-        if isinstance(hora, str) and len(hora) > 0:
+        if isinstance(hora, str):
             self.__hora = hora
-        if isinstance(qtd_pessoas, int) and qtd_pessoas > 0:
+        if isinstance(qtd_pessoas, int):
             self.__qtd_pessoas = qtd_pessoas
-        if isinstance(status, StatusReserva) and len(status) > 0:
+        if isinstance(status, StatusReserva):
             self.__status = status
-        if isinstance(cliente, Cliente) and len(cliente) > 0:
+        if isinstance(cliente, Cliente):
             self.__data = cliente
-        if isinstance(mesa, Mesa) and mesa > 0:
+        if isinstance(mesa, Mesa):
             self.__hora = mesa
         if isinstance(usuario_responsavel, Funcionario) and len(usuario_responsavel) > 0:
             self.__qtd_pessoas = usuario_responsavel
@@ -116,3 +116,4 @@ class Reserva:
     def pagamento(self, pagamento: Pagamento):
         if isinstance(pagamento, Pagamento):
             self.__pagamento = pagamento
+
