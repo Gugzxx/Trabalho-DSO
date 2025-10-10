@@ -1,10 +1,11 @@
+from AbstractTela import AbstractTela
 from Cliente import Cliente
 
 class TelaCliente:
     def __init__(self, controlador):
         self.__controlador = controlador
 
-    def mostrar_opcoes(self):
+    def mostrar_tela_opcoes(self):
         while True:
             print("\n=== Menu Cliente ===")
             print("1 - Cadastrar Cliente")
@@ -15,7 +16,9 @@ class TelaCliente:
 
             if opcao == "1":
                 nome = input("Nome: ")
-                self.__controlador.cadastrar_cliente(nome)
+                telefone = input("Telefone (apenas números): ")
+                email = input("Email: ")                
+                self.__controlador.cadastrar_cliente(nome, telefone, email)
                 print("Cliente cadastrado com sucesso!")
 
             elif opcao == "2":
