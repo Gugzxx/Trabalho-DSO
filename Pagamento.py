@@ -5,14 +5,14 @@ class Pagamento:
         self.__data_pagamento = None
         self.__status = None
 
-    if isinstance(forma_pagamento, str):
-        self.__forma_pagamento = forma_pagamento
-    if isinstance(valor, float):
-        self.__valor = valor
-    if isinstance(data_pagamento, str):
-        self.__data_pagamento = data_pagamento
-    if isinstance(status, str):
-        self.__status = status
+        if isinstance(forma_pagamento, str):
+            self.__forma_pagamento = forma_pagamento
+        if isinstance(valor, (int, float)):
+            self.__valor = float(valor)
+        if isinstance(data_pagamento, str):
+            self.__data_pagamento = data_pagamento
+        if isinstance(status, str):
+            self.__status = status
 
     @property
     def forma_pagamento(self):
@@ -30,7 +30,7 @@ class Pagamento:
     @valor.setter
     def valor(self, valor: float):
         if isinstance(valor, (int, float)) and valor >= 0:
-            self.__valor = valor
+            self.__valor = float(valor)
 
     @property
     def data_pagamento(self):
