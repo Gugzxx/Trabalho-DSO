@@ -4,11 +4,10 @@ class Mesa:
         self.__qtd_lugares = None
         self.__status = "Disponível"
 
-    if isinstance(numero, int):
-        self.__numero = numero
-    if isinstance(qtd_lugares, int):
-        self.__qtd_lugares = qtd_lugares
-
+        if isinstance(numero, int):
+            self.__numero = numero
+        if isinstance(qtd_lugares, int):
+            self.__qtd_lugares = qtd_lugares
 
     @property
     def numero(self):
@@ -24,5 +23,5 @@ class Mesa:
 
     @status.setter
     def status(self, status: str):
-        if status in ["Disponível", "Reservada", "Ocupada"]:
+        if status in ("Disponível", "Reservada", "Ocupada"):
             self.__status = status
