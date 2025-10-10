@@ -1,4 +1,3 @@
-from ControladorFuncionario import ControladorFuncionario
 from Funcionario import Funcionario
 
 class TelaFuncionario:
@@ -74,4 +73,3 @@ class TelaFuncionario:
                 break
             else:
                 print("Opção inválida!")
-
