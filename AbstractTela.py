@@ -1,8 +1,10 @@
-class AbstractTela:
+from abc import ABC, abstractmethod
+
+class AbstractTela(ABC):
   def __init__(self, controlador):
     self.__controlador = controlador
 
-  def le_num_inteiro(self, mensagem: str = '', inteiros_validos: [] = None):
+  def le_num_inteiro(self, mensagem: str = '', inteiros_validos: list = None):
     while True:
       valor_lido = input(mensagem)
       try:
@@ -14,3 +16,7 @@ class AbstractTela:
           print("Valor incorreto: Digite um numero inteiro valido")
           if inteiros_validos:
             print("Valores validos: ", inteiros_validos)
+
+@abstractmethod
+def mostrar_tela_opcoes(self):
+  pass
