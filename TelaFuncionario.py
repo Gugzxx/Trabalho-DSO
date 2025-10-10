@@ -1,10 +1,11 @@
+from AbstractTela import AbstractTela
 from Funcionario import Funcionario
 
 class TelaFuncionario:
     def __init__(self, controlador):
         self.__controlador = controlador
 
-    def mostrar_opcoes(self):
+    def mostrar_tela_opcoes(self):
         while True:
             print("\n=== Menu Funcionário ===")
             print("1 - Cadastrar Funcionário")
@@ -15,8 +16,10 @@ class TelaFuncionario:
 
             if opcao == "1":
                 nome = input("Nome: ")
+                email = input("Email: ")
+                telefone = input("Telefone (apenas números): ")
                 cargo = input("Cargo: ")
-                self.__controlador.cadastrar_funcionario(nome, cargo)
+                self.__controlador.cadastrar_funcionario(nome, email, telefone, cargo)
                 print("Funcionário cadastrado com sucesso!")
 
             elif opcao == "2":
