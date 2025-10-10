@@ -1,4 +1,3 @@
-from ControladorRestaurante import ControladorReestaurante
 from Restaurante import Restaurante
 
 class TelaRestaurante:
@@ -17,16 +16,16 @@ class TelaRestaurante:
       if opcao == "1":
         while True:
           try:
-            numero = int(input("Número da mesa: ")
+            numero = int(input("Número da mesa: "))
             break
           except ValueError:
             print("Digite um número inteiro válido.")
         while True:
           try:
-            qtd_lugares = int(input("Quantidade de lugares: ")
+            qtd_lugares = int(input("Quantidade de lugares: "))
             break
           except ValueError:
-            print("Digite um número inteiro válido." 
+            print("Digite um número inteiro válido.")
         self.__controlador.incluir_mesa(numero, qtd_lugares)
         print("Mesa incluída com suceesso!")
 
@@ -45,7 +44,7 @@ class TelaRestaurante:
       elif opcao == "3":
         mesas = self.__controlador.listar_mesas()
         print("Mesas cadasttradas: ")
-        for mesas in mesas:
+        for mesa in mesas:
           print(f"Mesa {mesa.numero} - Lugares: {mesa.qtd_lugares}")
 
       elif opcao == "0":
@@ -54,9 +53,3 @@ class TelaRestaurante:
      
       else:
         print("Opção Inválida.")
-
-
-      
-
-              
-                       
