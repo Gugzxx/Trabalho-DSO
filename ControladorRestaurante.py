@@ -11,15 +11,14 @@ class ControladorRestaurante:
     return nova_mesa
     
   def excluir_mesa(self, numero):
-    for mesa in self.__restaurante:
+    for mesa in self.__restaurante.mesas:
       if mesa.numero == numero:
         self.__restaurante.excluir_mesa(mesa)
         return True
     return False
     
-  def listar_mesa(self):
-    return.__restaurante.mesas
-    
+  def listar_mesas(self):
+    return self.__restaurante.mesas
   
 
   
