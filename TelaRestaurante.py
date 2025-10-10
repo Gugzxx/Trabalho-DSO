@@ -1,3 +1,4 @@
+from AbstractTela import AbstractTela
 from Restaurante import Restaurante
 
 class TelaRestaurante:
