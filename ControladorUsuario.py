@@ -1,5 +1,4 @@
 from Usuario import Usuario
-from ControladorReserva import ControladorReserva
 
 class ControladorUsuario:
   def __init__(self, controlador_reserva):
@@ -22,7 +21,3 @@ class ControladorUsuario:
       if usuario.email == email:
         return usuario
       return None
-          
-  
-
-
