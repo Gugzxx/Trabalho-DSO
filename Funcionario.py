@@ -5,8 +5,8 @@ class Funcionario(Usuario):
         super().__init__(nome, telefone, email)
         self.__cargo = None
 
-    if isinstance(cargo, str):
-        self.__cargo = cargo
+        if isinstance(cargo, str):
+            self.__cargo = cargo
 
     @property
     def cargo(self):
