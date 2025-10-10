@@ -19,6 +19,3 @@ class ControladorRestaurante:
     
   def listar_mesas(self):
     return self.__restaurante.mesas
-  
-
-  
