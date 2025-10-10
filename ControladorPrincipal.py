@@ -1,14 +1,14 @@
-from ControladorReserva import ControladorReserva
-from ControladorUsuario import ControladorUsuario
-from ControladorCliente import ControladorCliente
-from ControladorFuncionario import ControladorFuncionario
-
 def main():
+    from ControladorReserva import ControladorReserva
+    from ControladorUsuario import ControladorUsuario
+    from ControladorCliente import ControladorCliente
+    from ControladorFuncionario import ControladorFuncionario
+
     controlador_reserva = ControladorReserva()
     controlador_usuario = ControladorUsuario(controlador_reserva)
     controlador_cliente = ControladorCliente(controlador_reserva)
     controlador_funcionario = ControladorFuncionario(controlador_reserva)
-
+    
     while True:
         print("\n=== Menu Principal ===")
         print("1 - Menu Usuário")
@@ -34,4 +34,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
