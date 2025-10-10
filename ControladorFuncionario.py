@@ -1,5 +1,5 @@
 from Funcionario import Funcionario
-from ControladorReserva import ControladorReserva
+from TelaFuncionario import TelaFuncionario
 
 class ControladorFuncionario:
     def __init__(self, controlador_reserva):
