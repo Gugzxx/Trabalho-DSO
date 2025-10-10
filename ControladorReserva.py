@@ -1,4 +1,6 @@
 from TelaReserva import TelaReserva
+from Reserva import Reserva
+from StatusReserva import StatusReserva
 
 class ControladorReserva:
     def __init__(self):
@@ -17,25 +19,28 @@ class ControladorReserva:
         if not dados:
                 return None
 
-        reserva = {
-            "id": self.__id_reserva,
-            "data": dados.get("data"),
-            "hora": dados.get("hora"),
-            "qtd_pessoas": dados.get("qtd_pessoas"),
-            "mesa": dados.get("mesa"),
-            "status": "pendente",
-            "cliente": cliente,
-            }
-        self.__reservas.append(reserva)
+        nova_reserva = Reserva(
+            id_reserva=self.__id_reserva,
+            data=dados.get("data"),
+            hora=dados.get("hora"),
+            qtd_pessoas=dados.get("qtd_pessoas"),
+            status=StatusReserva.PENDENTE,
+            cliente=cliente,
+            mesa=dados.get("mesa"),
+            usuario_responsavel=None,
+            pagamento=None
+        )
+
+        self.__reservas.append(nova_reserva)
         self.__id_reserva += 1
-        print("Reserva criada com sucesso! ID:", reserva["id"])
-        return reserva
+        print("Reserva solicitada com sucesso! ID:", nova_reserva.id_reserva)
+        return nova_reserva
 
     def confirmar_reserva(self):
             id_reserva = self.__tela_reserva.solicita_id_reserva()
             for reserva in self.__reservas:
-                if reserva["id"] == id_reserva:
-                    reserva["status"] = "confirmada"
+                if reserva.id_reserva == id_reserva:
+                    reserva.status = StatusReserva.CONFIRMADA
                     print("Reserva confirmada!")
                     return
             print("Reserva não encontrada.")
@@ -74,6 +79,9 @@ class ControladorReserva:
                 try:
                     opcao = self.__tela_reserva.mostra_tela_opcoes()
                     funcao_escolhida = switcher.get(opcao, self.finalizar)
+                    funcao_escolhida()
+                except (ValueError, KeyError):
+                    print("Opção inválida!")
                     funcao_escolhida()
                 except (ValueError, KeyError):
                     print("Opção inválida!")
