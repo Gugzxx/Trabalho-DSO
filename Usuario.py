@@ -1,4 +1,10 @@
-class Usuario:
+from abc import ABC, abstractmethod
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from Reserva import Reserva
+
+class Usuario(ABC):
     def __init__(self, nome: str, telefone: str, email: str):
         self.__nome = None
         self.__telefone = None
