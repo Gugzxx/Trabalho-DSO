@@ -28,13 +28,13 @@ class Reserva:
         if isinstance(status, StatusReserva):
             self.__status = status
         if isinstance(cliente, Cliente):
-            self.__data = cliente
+            self.__cliente = cliente
         if isinstance(mesa, Mesa):
-            self.__hora = mesa
+            self.__mesa = mesa
         if isinstance(usuario_responsavel, Funcionario) and len(usuario_responsavel) > 0:
-            self.__qtd_pessoas = usuario_responsavel
+            self.__usuario_responsavel = usuario_responsavel
         if isinstance(pagamento, Pagamento) and pagamento > 0:
-            self.__status = pagamento
+            self.__pagamento = pagamento
 
     @property
     def id_reserva(self):
@@ -116,4 +116,3 @@ class Reserva:
     def pagamento(self, pagamento: Pagamento):
         if isinstance(pagamento, Pagamento):
             self.__pagamento = pagamento
-
