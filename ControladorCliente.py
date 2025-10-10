@@ -1,15 +1,14 @@
 from Cliente import Cliente
 from TelaCliente import TelaCliente
 
-
 class ControladorCliente:
     def __init__(self, controlador_reserva):
         self.__controlador_reserva = controlador_reserva
         self.__clientes = []
         self.__tela_cliente = TelaCliente(self)
 
-    def cadastrar_cliente(self, nome):
-        cliente = Cliente(nome)
+    def cadastrar_cliente(self, nome, telefone, email):
+        cliente = Cliente(nome, telefone, email)
         self.__clientes.append(cliente)
         return cliente
 
