@@ -1,34 +1,44 @@
-def main():
-    from ControladorReserva import ControladorReserva
-    from ControladorCliente import ControladorCliente
-    from ControladorFuncionario import ControladorFuncionario
+from Telas.AbstractTela import AbstractTela
+from Telas.TelaPrincipal import TelaPrincipal
+from Telas.TelaCliente import TelaCliente
+from Telas.TelaFuncionario import TelaFuncionario
+from Telas.TelaUsuario import TelaUsuario
+from Telas.TelaReserva import TelaReserva
+from Telas.TelaRestaurante import TelaRestaurante
+from Objetos.Sistema import Sistema
+from Controladores.ControladorUsuario import ControladorUsuario
+from Controladores.ControladorReserva import ControladorReserva
+from Controladores.ControladorCliente import ControladorCliente
+from Controladores.ControladorFuncionario import ControladorFuncionario
+from Controladores.ControladorRestaurante import ControladorRestaurante
+from Controladores.ControladorSistema import ControladorSistema
 
-    controlador_reserva = ControladorReserva()
-    controlador_cliente = ControladorCliente(controlador_reserva)
-    controlador_funcionario = ControladorFuncionario(controlador_reserva)
-    
-    while True:
-        print("\n=== Menu Principal ===")
-        print("1 - Menu Cliente")
-        print("2 - Menu Funcionário")
-        print("3 - Menu Reserva")
-        print("0 - Sair")
-        opcao = input("Escolha uma opção: ")
+class ControladorPrincipal:
+    def __init__(self):
+        self.sistema = Sistema()
+        self.tela_principal = TelaPrincipal()
+        self.tela_cliente = TelaCliente()
+        self.tela_funcionario = TelaFuncionario()
+        self.tela_usuario = TelaUsuario()
+        self.tela_reserva = TelaReserva()
+        self.tela_restaurante = TelaRestaurante()
 
-        if opcao == "1":
-            controlador_cliente._ControladorCliente__tela_cliente.mostrar_tela_opcoes()
-        elif opcao == "2":
-            controlador_funcionario._ControladorFuncionario__tela_funcionario.mostrar_tela_opcoes()
-        elif opcao == "3":
-            controlador_reserva.inicia()
-        elif opcao == "0":
-            print("Saindo do sistema.")
-            break
-        else:
-            print("Opção inválida!")
+        self.controlador_usuario = ControladorUsuario(self.sistema, self.tela_usuario)
+        self.controlador_reserva = ControladorReserva(self.sistema, self.tela_reserva)
+        self.controlador_cliente = ControladorCliente(self.sistema, self.tela_cliente)
+        self.controlador_restaurante = ControladorRestaurante(self.sistema, self.tela_restaurante)
+        self.controlador_funcionario = ControladorFuncionario(self.sistema, self.tela_funcionario,
+                                                             self.controlador_usuario,
+                                                             self.controlador_reserva,
+                                                             self.controlador_restaurante)
+        self.controlador_restaurante = ControladorRestaurante(self.sistema, self.tela_restaurante)
+        self.controlador_sistema = ControladorSistema(self.sistema, self)
 
-if __name__ == "__main__":
-    main()
+    def executar(self):
+        self.controlador_sistema.executar(self.tela_principal)
 
-if __name__ == "__main__":
-    main()
+    def menu_cliente(self):
+        self.controlador_cliente.menu_cliente()
+
+    def menu_funcionario(self):
+        self.controlador_funcionario.menu_funcionario()
