@@ -1,8 +1,4 @@
-from enum import Enum
-
-class StatusReserva(Enum):
-  PENDENTE = 1
-  CONFIRMADA = 2
-  CANCELADA = 3
-  CONCLUIDA = 4
-  
+class StatusReserva:
+    PENDENTE = "pendente"
+    CONFIRMADA = "confirmada"
+    CANCELADA = "cancelada"
