@@ -1,60 +1,15 @@
-from Mesa import Mesa
-
 class Restaurante:
-    def __init__(self, nome: str, telefone: str, endereco: str, mesas: list):
-        self.__nome = None
-        self.__telefone = None
-        self.__endereco = None
-        self.__mesas = []
-        
-        if isinstance(nome, str):
-            self.__nome = nome
-        if isinstance(telefone, str):
-            self.__telefone = telefone
-        if isinstance(endereco, str):
-            self.__endereco = endereco
-        if isinstance(mesas, list):
-            for mesa in mesas:
-                if isinstance(mesa, Mesa):
-                    self.__mesas.append(mesa)
+    def __init__(self, nome, endereco):
+        self.nome = nome
+        self.endereco = endereco
+        self.cardapio = None
+        self.mesas = []
 
-    @property
-    def nome(self):
-        return self.__nome
+    def set_cardapio(self, cardapio):
+        self.cardapio = cardapio
 
-    @nome.setter
-    def nome(self, nome: str):
-        if isinstance(nome, str):
-            self.__nome = nome
+    def adicionar_mesa(self, mesa):
+        self.mesas.append(mesa)
 
-    @property
-    def telefone(self):
-        return self.__telefone
-
-    @telefone.setter
-    def telefone(self, telefone: str):
-        if isinstance(telefone, str):
-            self.__telefone = telefone
-
-    @property
-    def endereco(self):
-        return self.__endereco
-
-    @endereco.setter
-    def endereco(self, endereco: str):
-        if isinstance(endereco, str):
-            self.__endereco = endereco
-
-    @property
-    def mesas(self):
-        return self.__mesas
-
-    def incluir_mesa(self, mesa: Mesa):
-        if isinstance(mesa, Mesa) and mesa not in self.__mesas:
-            self.__mesas.append(mesa)
-        return self.__mesas
-
-    def excluir_mesa(self, mesa: Mesa):
-        if isinstance(mesa, Mesa) and mesa in self.__mesas:
-            self.__mesas.remove(mesa)
-        return self.__mesas
+    def listar_mesas(self):
+        return self.mesas
