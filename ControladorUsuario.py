@@ -1,23 +1,19 @@
-#from Usuario import Usuario
+class ControladorUsuario:
+    def __init__(self, sistema, tela_usuario):
+        self.sistema = sistema
+        self.tela_usuario = tela_usuario
 
-#class ControladorUsuario:
- # def __init__(self, controlador_reserva):
-  #  self.__controlador_reserva = controlador_reserva
-   # self.__usuarios = []
+    def criar_cliente(self):
+        login, senha, nome, email = self.tela_usuario.pedir_dados_usuario()
+        if self.sistema.cadastrar_cliente(login, senha, nome, email):
+            self.tela_usuario.mostrar_mensagem("Cliente cadastrado com sucesso!")
+        else:
+            self.tela_usuario.mostrar_mensagem("Erro: Login já existe.")
 
-  #def cadastrar_usuario(self, nome, telefone, email):
-   # novo_usuario = Usuario(nome, telefone, email)
-    #self.__usuarios.append(novo_usuario)
-    #return novo_usuario
-
-  #def solicitar_reserva(self, usuario, dados_reserva):
-   # return self.__controlador_reserva.solicitar_reserva(usuario, dados_reserva)
-
-  #def alterar_reserva(self, usuario, id_reserva, novos_dados):
-   # return self.__controlador_reserva.alterar_reserva(usuario, id_reserva, novos_dados)
-
-  #def buscar_usuario_por_email(self, email):
-   # for usuario in self.__usuarios:
-    #  if usuario.email == email:
-     #   return usuario
-      #return None
+    def criar_funcionario(self):
+        login, senha, nome, email = self.tela_usuario.pedir_dados_usuario()
+        is_admin = input("É administrador? (s/n): ").lower() == 's'
+        if self.sistema.cadastrar_funcionario(login, senha, nome, email, is_admin):
+            self.tela_usuario.mostrar_mensagem("Funcionário cadastrado com sucesso!")
+        else:
+            self.tela_usuario.mostrar_mensagem("Erro: Login já existe.")
