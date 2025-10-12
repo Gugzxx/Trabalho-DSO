@@ -1,78 +1,28 @@
-from AbstractTela import AbstractTela
-from Funcionario import Funcionario
+from Telas.AbstractTela import AbstractTela
 
-class TelaFuncionario:
-    def __init__(self, controlador):
-        self.__controlador = controlador
+class TelaFuncionario(AbstractTela):
+    def mostrar_menu(self):
+        print("\nMenu Funcionário:")
+        print("1 - Gerenciar Clientes")
+        print("2 - Gerenciar Funcionários")
+        print("3 - Ver Todas Reservas")
+        print("4 - Gerenciar Restaurantes")
+        print("5 - Gerenciar Pagamentos")  
+        print("6 - Gerenciar Cardápios") 
+        print("0 - Logout")
+        return input("Escolha: ")
 
-    def mostrar_tela_opcoes(self):
-        while True:
-            print("\n=== Menu Funcionário ===")
-            print("1 - Cadastrar Funcionário")
-            print("2 - Anotar Reserva")
-            print("3 - Alterar Reserva")
-            print("0 - Sair")
-            opcao = input("Escolha uma opção: ")
+    def mostrar_clientes(self, clientes):
+        if not clientes:
+            print("Nenhum cliente cadastrado.")
+        else:
+            for c in clientes:
+                print(f"Login: {c.login} | Nome: {c.nome} | Email: {c.email}")
 
-            if opcao == "1":
-                nome = input("Nome: ")
-                email = input("Email: ")
-                telefone = input("Telefone (apenas números): ")
-                cargo = input("Cargo: ")
-                self.__controlador.cadastrar_funcionario(nome, email, telefone, cargo)
-                print("Funcionário cadastrado com sucesso!")
-
-            elif opcao == "2":
-                nome = input("Nome do funcionário: ")
-                funcionario = next((f for f in self.__controlador.listar_funcionarios() if f.nome == nome), None)
-                if not funcionario:
-                    print("Funcionário não encontrado.")
-                    continue
-                dados_reserva = {}
-                dados_reserva["data"] = input("Data da reserva: ")
-                dados_reserva["hora"] = input("Hora da reserva: ")
-                while True:
-                    try:
-                        dados_reserva["qtd_pessoas"] = int(input("Quantidade de pessoas: "))
-                        break
-                    except ValueError:
-                        print("Digite um número inteiro válido.")
-                while True:
-                    try:
-                        dados_reserva["mesa"] = int(input("Número da mesa: "))
-                        break
-                    except ValueError:
-                        print("Digite um número inteiro válido.")
-                self.__controlador.anotar_reserva(funcionario, dados_reserva)
-                print("Reserva feita com sucesso!")
-
-            elif opcao == "3":
-                nome = input("Nome do funcionário: ")
-                funcionario = next((f for f in self.__controlador.listar_funcionarios() if f.nome == nome), None)
-                if not funcionario:
-                    print("Funcionário não encontrado.")
-                    continue
-                id_reserva = int(input("ID da reserva a alterar: "))
-                novos_dados = {}
-                novos_dados["data"] = input("Nova data da reserva: ")
-                novos_dados["hora"] = input("Nova hora da reserva: ")
-                while True:
-                    try:
-                        novos_dados["qtd_pessoas"] = int(input("Nova quantidade de pessoas: "))
-                        break
-                    except ValueError:
-                        print("Digite um número inteiro válido.")
-                while True:
-                    try:
-                        novos_dados["mesa"] = int(input("Novo número da mesa: "))
-                        break
-                    except ValueError:
-                        print("Digite um número inteiro válido.")
-                self.__controlador.alterar_reserva(funcionario, id_reserva, novos_dados)
-                print("Reserva alterada com sucesso!")
-
-            elif opcao == "0":
-                print("Saindo do menu Funcionário.")
-                break
-            else:
-                print("Opção inválida!")
+    def mostrar_funcionarios(self, funcionarios):
+        if not funcionarios:
+            print("Nenhum funcionário cadastrado.")
+        else:
+            for f in funcionarios:
+                admin_str = "Administrador" if f.is_admin else "Funcionário"
+                print(f"Login: {f.login} | Nome: {f.nome} | Email: {f.email} | Tipo: {admin_str}")
