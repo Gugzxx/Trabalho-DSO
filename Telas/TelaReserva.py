@@ -6,4 +6,4 @@ class TelaReserva(AbstractTela):
             print("Nenhuma reserva cadastrada.")
         else:
             for r in reservas:
-                print(f"Reserva #{r.id} - Cliente: {r.cliente_login} - Restaurante: {r.restaurante.nome} - Mesa {r.mesa_numero} - Data: {r.data_hora} - Status: {r.status}")
+                print(f"Reserva #{r.id} - Cliente: {r.cliente_login} - Restaurante: {r.restaurante} - Mesa {r.mesa_numero} - Data: {r.data_hora} - Status: {r.status}")
