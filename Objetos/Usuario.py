@@ -1,4 +1,6 @@
-class Usuario:
+from abc import ABC
+
+class Usuario(ABC):
     def __init__(self, login: str, senha: str, tipo: str):
         self.__login = None
         self.__senha = None
@@ -12,11 +14,11 @@ class Usuario:
             self.__tipo = tipo
         else:
             raise ValueError("Tipo de usuário inválido. Deve ser 'cliente' ou 'funcionario'.")
-        
+
     @property
     def login(self):
         return self.__login
-    
+
     @login.setter
     def login(self, login: str):
         self.__login = login
@@ -24,31 +26,18 @@ class Usuario:
     @property
     def senha(self):
         return self.__senha
-    
+
     @senha.setter
     def senha(self, senha: str):
-        self.__senha = senha
-    
+        self.__senha = senha   
+
     @property
     def tipo(self):
         return self.__tipo
-    
+
     @tipo.setter
     def tipo(self, tipo: str):
         if tipo in ["cliente", "funcionario"]:
             self.__tipo = tipo
         else:
             raise ValueError("Tipo de usuário inválido. Deve ser 'cliente' ou 'funcionario'.")
-
-class Funcionario(Usuario):
-    def __init__(self, login, senha, nome, email, is_admin=False):
-        super().__init__(login, senha, "funcionario")
-        self.nome = nome
-        self.email = email
-        self.is_admin = is_admin
-
-class Cliente(Usuario):
-    def __init__(self, login, senha, nome, email):
-        super().__init__(login, senha, "cliente")
-        self.nome = nome
-        self.email = email
