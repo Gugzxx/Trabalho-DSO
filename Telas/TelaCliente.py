@@ -23,7 +23,7 @@ class TelaCliente(AbstractTela):
         mesa = input("Número da mesa: ")
         restaurante = input("Nome do restaurante: ")
         detalhes = input("Detalhes da reserva: ")
-        data_hora = input("Data e hora (ex: 13/10/2025 14:00): ")
+        data_hora = input("Data e hora (ex: 13/10/2025 18:00): ")
         return mesa, restaurante, detalhes, data_hora
 
     def pedir_id_reserva(self):
