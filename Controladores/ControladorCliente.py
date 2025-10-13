@@ -26,7 +26,7 @@ class ControladorCliente:
         id_reserva = int(input("ID da reserva para pagar: "))
         reserva = self.sistema.buscar_reserva(id_reserva)
         if reserva and reserva.cliente_login == cliente.login:
-            valor = float(input("Valor do pagamento: "))
+            valor = float(input("Valor do pagamento(Ex: 20.00): "))
             metodo = input("Método de pagamento: ")
             pagamento = Pagamento(reserva.id, valor, metodo)
             pagamento.confirmar_pagamento()
@@ -44,17 +44,23 @@ class ControladorCliente:
                 reservas = self.sistema.listar_reservas_cliente(cliente.login)
                 self.tela_cliente.mostrar_reservas(reservas)
             elif escolha == '2':
-                mesa_numero, restaurante_nome, detalhes, data_hora = self.tela_cliente.pedir_dados_reserva()
-                restaurante = next((r for r in self.sistema.restaurantes if r.nome == restaurante_nome), None)
-                if not restaurante:
+                mesa_input, restaurante_nome, detalhes, data_hora = self.tela_cliente.pedir_dados_reserva()
+                restaurante_obj = next((r for r in self.sistema.restaurantes if r.nome == restaurante_nome), None)
+                if not restaurante_obj:
                     self.tela_cliente.mostrar_mensagem("Restaurante não encontrado.")
                     continue
-                reserva = Reserva(cliente.login, mesa_numero, restaurante, detalhes, data_hora)
+                try:
+                    mesa_numero = int(mesa_input)
+                except (ValueError, TypeError):
+                    self.tela_cliente.mostrar_mensagem("Número da mesa inválido.")
+                    continue
+                # Armazenamos como tipos primitivos (int para mesa, str para nome do restaurante)
+                reserva = Reserva(cliente.login, mesa_numero, restaurante_obj.nome, detalhes, data_hora)
                 self.sistema.adicionar_reserva(reserva)
                 self.tela_cliente.mostrar_mensagem("Reserva criada com sucesso.")
             elif escolha == '3':
                 id_reserva = self.tela_cliente.pedir_id_reserva()
-                mesa, restaurante, detalhes, data_hora = self.tela_cliente.pedir_dados_reserva()
+                mesa_numero, restaurante, detalhes, data_hora = self.tela_cliente.pedir_dados_reserva()
                 reserva = self.sistema.buscar_reserva(id_reserva)
                 if reserva and reserva.cliente_login == cliente.login:
                     reserva.atualizar(detalhes, data_hora)
