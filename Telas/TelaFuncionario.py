@@ -8,7 +8,8 @@ class TelaFuncionario(AbstractTela):
         print("3 - Ver Todas Reservas")
         print("4 - Gerenciar Restaurantes")
         print("5 - Gerenciar Pagamentos")  
-        print("6 - Gerenciar Cardápios") 
+        print("6 - Gerenciar Cardápios")
+        print("7 - Gerar Relatórios")
         print("0 - Logout")
         return input("Escolha: ")
 
