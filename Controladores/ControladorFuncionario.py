@@ -1,4 +1,6 @@
 from Objetos.Cardapio import Cardapio
+from collections import Counter
+from datetime import datetime
 
 class ControladorFuncionario:
     def __init__(self, sistema, tela_funcionario, controlador_usuario, controlador_reserva, controlador_restaurante):
@@ -27,11 +29,94 @@ class ControladorFuncionario:
                 self.listar_pagamentos()
             elif escolha == '6':
                 self.gerenciar_cardapios()
+            elif escolha == '7':
+                self.menu_relatorios()
             elif escolha == '0':
                 self.sistema.logado = None
                 break
             else:
                 self.tela_funcionario.mostrar_mensagem("Opção inválida.")
+
+    def menu_relatorios(self):
+        while True:
+            print("\n--- Menu de Relatórios ---")
+            print("1 - Mesas Mais Reservadas")
+            print("2 - Meses com Maior Movimento")
+            print("0 - Voltar")
+            escolha = input("Escolha uma opção: ")
+
+            if escolha == '1':
+                self.relatorio_mesas_mais_reservadas()
+            elif escolha == '2':
+                self.relatorio_meses_mais_movimentados()
+            elif escolha == '0':
+                break
+            else:
+                print("Opção inválida. Tente novamente.")
+
+    def relatorio_mesas_mais_reservadas(self):
+        print("\n--- Relatório: Mesas Mais Reservadas ---")
+        if not self.sistema.reservas:
+            print("Nenhuma reserva encontrada para gerar o relatório.")
+            input("Pressione Enter para continuar...")
+            return
+
+        contagem_mesas = Counter((reserva.restaurante, reserva.mesa_numero) for reserva in self.sistema.reservas)
+
+        if not contagem_mesas:
+            print("Não foi possível gerar o relatório.")
+            input("Pressione Enter para continuar...")
+            return
+
+        mesas_mais_comuns = contagem_mesas.most_common(10)
+
+        print("\nAs 10 mesas mais reservadas:")
+        print("-" * 55)
+        print(f"{'Restaurante':<25} | {'Nº da Mesa':<15} | {'Nº de Reservas':<10}")
+        print("-" * 55)
+        for (restaurante, mesa), contagem in mesas_mais_comuns:
+            print(f"{restaurante:<25} | {mesa:<15} | {contagem:<10}")
+        print("-" * 55)
+        input("Pressione Enter para continuar...")
+
+    def relatorio_meses_mais_movimentados(self):
+        print("\n--- Relatório: Meses com Maior Movimento ---")
+        if not self.sistema.reservas:
+            print("Nenhuma reserva encontrada para gerar o relatório.")
+            input("Pressione Enter para continuar...")
+            return
+
+        contagem_meses = Counter()
+        
+        nomes_meses = {
+            1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril", 5: "Maio", 6: "Junho",
+            7: "Julho", 8: "Agosto", 9: "Setembro", 10: "Outubro", 11: "Novembro", 12: "Dezembro"
+        }
+
+        for reserva in self.sistema.reservas:
+            try:
+                data_obj = datetime.strptime(reserva.data_hora, "%d/%m/%Y %H:%M")
+                nome_mes = f"{nomes_meses[data_obj.month]}/{data_obj.year}"
+                contagem_meses[nome_mes] += 1
+            except (ValueError, TypeError):
+                print(f"Aviso: Formato de data inválido para a reserva ID {reserva.id} ('{reserva.data_hora}'). Ignorando do relatório.")
+                continue
+
+        if not contagem_meses:
+            print("Nenhuma reserva com data válida encontrada.")
+            input("Pressione Enter para continuar...")
+            return
+
+        meses_ordenados = contagem_meses.most_common()
+
+        print("\nRanking de meses por número de reservas:")
+        print("-" * 40)
+        print(f"{'Mês/Ano':<25} | {'Nº de Reservas':<10}")
+        print("-" * 40)
+        for (mes, contagem) in meses_ordenados:
+            print(f"{mes:<25} | {contagem:<10}")
+        print("-" * 40)
+        input("Pressione Enter para continuar...")
 
     def gerenciar_clientes(self):
         self.tela_funcionario.mostrar_clientes(self.sistema.clientes)
@@ -69,7 +154,7 @@ class ControladorFuncionario:
 
     def listar_pagamentos(self):
         print("Pagamentos realizados/pedências:")
-        if hasattr(self.sistema, "pagamentos"):
+        if hasattr(self.sistema, "pagamentos") and self.sistema.pagamentos:
             for p in self.sistema.pagamentos:
                 print(f"Reserva ID: {p.reserva_id} | Valor: {p.valor} | Método: {p.metodo} | Status: {p.status}")
         else:
