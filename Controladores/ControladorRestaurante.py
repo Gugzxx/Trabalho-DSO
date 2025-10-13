@@ -16,13 +16,21 @@ class ControladorRestaurante:
         if not restaurante.cardapio:
             restaurante.cardapio = Cardapio(restaurante.nome)
         print("1 - Adicionar item")
-        print("2 - Listar itens")
+        print("2 - Remover item")
+        print("3 - Listar itens")
         escolha = input("Escolha: ")
         if escolha == "1":
             item = input("Digite o nome do item: ")
             restaurante.cardapio.adicionar_item(item)
             print("Item adicionado.")
         elif escolha == "2":
+            item = input("Digite o nome do item: ")
+            try:
+                restaurante.cardapio.remover_item(item)
+                print("Item removido.")
+            except ValueError as e:
+                print(e)
+        elif escolha == "3":
             for item in restaurante.cardapio.listar_itens():
                 print(item)
 
