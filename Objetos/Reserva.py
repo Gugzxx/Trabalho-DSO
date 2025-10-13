@@ -12,15 +12,15 @@ class Reserva:
         self.status = status or "pendente"  # Usar StatusReserva
 
         if isinstance(cliente_login, str):
-            self.cliente_login = cliente_login
+            self.__cliente_login = cliente_login
         if isinstance(mesa_numero, int) and mesa_numero > 0:
-            self.mesa_numero = mesa_numero
+            self.__mesa_numero = mesa_numero
         if isinstance(restaurante, str):
-            self.restaurante = restaurante
+            self.__restaurante = restaurante
         if isinstance(detalhes, str):
-            self.detalhes = detalhes
+            self.__detalhes = detalhes
         if isinstance(data_hora, str):
-            self.data_hora = data_hora
+            self.__data_hora = data_hora
 
     @property
     def cliente_login(self):
@@ -40,7 +40,7 @@ class Reserva:
             self.__mesa_numero = mesa_numero
         else:
             raise ValueError("Número da mesa deve ser um inteiro positivo.")
-        
+
     @property
     def restaurante(self):
         return self.__restaurante
@@ -67,8 +67,10 @@ class Reserva:
 
     def atualizar(self, detalhes=None, data_hora=None, status=None):
         if detalhes:
-            self.detalhes = detalhes
+            self.__detalhes = detalhes
         if data_hora:
-            self.data_hora = data_hora
+            self.__data_hora = data_hora
+        if status:
+            self.status = status
         if status:
             self.status = status
