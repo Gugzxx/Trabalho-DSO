@@ -101,4 +101,3 @@ class ControladorFuncionario:
         elif escolha == "3":
             for item in restaurante.cardapio.listar_itens():
                 print(item)
-        
