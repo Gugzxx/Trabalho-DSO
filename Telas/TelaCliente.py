@@ -17,13 +17,13 @@ class TelaCliente(AbstractTela):
             print("Nenhuma reserva encontrada.")
         else:
             for r in reservas:
-                print(f"ID: {r.id} | Mesa: {r.mesa_numero} | Restaurante: {r.restaurante.nome} | Data/Hora: {r.data_hora} | Detalhes: {r.detalhes} | Status: {r.status}")
+                print(f"ID: {r.id} | Mesa: {r.mesa_numero} | Restaurante: {r.restaurante} | Data/Hora: {r.data_hora} | Detalhes: {r.detalhes} | Status: {r.status}")
 
     def pedir_dados_reserva(self):
         mesa = input("Número da mesa: ")
         restaurante = input("Nome do restaurante: ")
         detalhes = input("Detalhes da reserva: ")
-        data_hora = input("Data e hora (ex: 2025-10-11 14:00): ")
+        data_hora = input("Data e hora (ex: 13/10/2025 14:00): ")
         return mesa, restaurante, detalhes, data_hora
 
     def pedir_id_reserva(self):
