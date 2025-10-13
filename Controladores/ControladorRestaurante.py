@@ -52,6 +52,4 @@ class ControladorRestaurante:
             elif escolha == "0":
                 break
             else:
-                self.tela_restaurante.mostrar_mensagem("Opção inválida.")
-
-    
+                self.tela_restaurante.mostrar_mensagem("Opção inválida.")    
