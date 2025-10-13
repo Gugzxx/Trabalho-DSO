@@ -1,4 +1,5 @@
-from Objetos.Usuario import Cliente, Funcionario, Usuario
+from Objetos.Cliente import Cliente
+from Objetos.Funcionario import Funcionario
 from Objetos.Reserva import Reserva
 from Objetos.Restaurante import Restaurante
 
@@ -70,5 +71,3 @@ class Sistema:
 
     def listar_todas_reservas(self):
         return self.reservas
-
-    # Métodos adicionais podem ser criados para gerenciar restaurantes, mesas, pagamentos, etc.
