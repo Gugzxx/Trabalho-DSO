@@ -66,6 +66,7 @@ class ControladorCliente:
                         self.tela_cliente.mostrar_mensagem("Número da mesa inválido. Alteração cancelada.")
                         continue
                     reserva.atualizar(mesa_numero=mesa_numero, restaurante=restaurante, detalhes=detalhes, data_hora=data_hora)
+                    self.sistema.atualizar_reserva(reserva)
                     self.tela_cliente.mostrar_mensagem("Reserva atualizada.")
                 else:
                     self.tela_cliente.mostrar_mensagem("Reserva não encontrada ou não pertence a você.")
@@ -73,7 +74,7 @@ class ControladorCliente:
                 id_reserva = self.tela_cliente.pedir_id_reserva()
                 reserva = self.sistema.buscar_reserva(id_reserva)
                 if reserva and reserva.cliente_login == cliente.login:
-                    self.sistema.reservas.remove(reserva)
+                    self.sistema.remover_reserva(id_reserva)
                     self.tela_cliente.mostrar_mensagem("Reserva excluída.")
                 else:
                     self.tela_cliente.mostrar_mensagem("Reserva não encontrada ou não pertence a você.")
