@@ -1,29 +1,58 @@
-from Telas.AbstractTela import AbstractTela
+from Telas.abstract_tela import AbstractTela
 
 class TelaFuncionario(AbstractTela):
     def mostrar_menu(self):
-        print("\nMenu Funcionário:")
+        print("\n--- Painel Administrativo ---")
         print("1 - Gerenciar Clientes")
         print("2 - Gerenciar Funcionários")
         print("3 - Ver Todas Reservas")
-        print("4 - Gerenciar Restaurantes")
-        print("5 - Gerenciar Pagamentos")  
-        print("6 - Gerenciar Cardápios")
-        print("7 - Gerar Relatórios")
+        print("4 - Gerenciar Restaurantes e Cardápios")
+        print("7 - Relatórios")
         print("0 - Logout")
         return input("Escolha: ")
 
-    def mostrar_clientes(self, clientes):
+    def mostrar_menu_gerenciar_clientes(self, clientes):
+        print("\n--- Clientes Cadastrados ---")
         if not clientes:
-            print("Nenhum cliente cadastrado.")
+            print("Nenhum cliente.")
         else:
             for c in clientes:
-                print(f"Login: {c.login} | Nome: {c.nome} | Email: {c.email}")
+                print(f"- {c.login} ({c.nome})")
+        print("\nl - Listar Clientes")
+        print("a - Adicionar Cliente")
+        print("r - Remover Cliente")
+        print("0 - Voltar")
+        return input("Escolha: ").lower()
 
-    def mostrar_funcionarios(self, funcionarios):
-        if not funcionarios:
-            print("Nenhum funcionário cadastrado.")
-        else:
-            for f in funcionarios:
-                admin_str = "Administrador" if f.is_admin else "Funcionário"
-                print(f"Login: {f.login} | Nome: {f.nome} | Email: {f.email} | Tipo: {admin_str}")
+    def mostrar_menu_gerenciar_funcionarios(self, funcionarios):
+        print("\n--- Funcionários ---")
+        for f in funcionarios:
+            tipo = "ADMIN" if f.is_admin else "Comum"
+            print(f"- {f.login} [{tipo}]")
+        print("a - Adicionar Funcionário")
+        print("r - Remover Funcionário")
+        print("0 - Voltar")
+        return input("Escolha: ").lower()
+
+    def pedir_login(self):
+        return input("Digite o login alvo: ")
+
+    def mostrar_menu_relatorios(self):
+        print("\n--- Relatórios ---")
+        print("1 - Mesas Mais Reservadas")
+        print("2 - Meses com Maior Movimento")
+        print("0 - Voltar")
+        return input("Escolha: ")
+
+    def mostrar_relatorio_mesas(self, dados):
+        print("\n--- Ranking Mesas ---")
+        print(f"{'Restaurante':<15} | {'Mesa':<5} | {'Qtd'}")
+        for (rest, mesa), qtd in dados:
+            print(f"{rest:<15} | {mesa:<5} | {qtd}")
+        input("Enter para continuar...")
+
+    def mostrar_relatorio_meses(self, dados):
+        print("\n--- Movimento Mensal ---")
+        for mes, qtd in dados:
+            print(f"{mes}: {qtd} reservas")
+        input("Enter para continuar...")
