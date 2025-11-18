@@ -65,12 +65,19 @@ class Reserva:
     def data_hora(self, data_hora: str):
         self.__data_hora = data_hora
 
-    def atualizar(self, detalhes=None, data_hora=None, status=None):
+    def atualizar(self, mesa_numero=None, restaurante=None, detalhes=None, data_hora=None, status=None):
+        if mesa_numero is not None:
+            try:
+                if not isinstance(mesa_numero, int):
+                    mesa_numero = int(mesa_numero)
+                self.mesa_numero = mesa_numero
+            except Exception:
+                raise ValueError("Número da mesa inválido.")
+        if restaurante:
+            self.restaurante = restaurante
         if detalhes:
             self.__detalhes = detalhes
         if data_hora:
             self.__data_hora = data_hora
-        if status:
-            self.status = status
         if status:
             self.status = status
