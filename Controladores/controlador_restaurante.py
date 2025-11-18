@@ -30,6 +30,8 @@ class ControladorRestaurante:
                 self.sistema.adicionar_restaurante(restaurante)
             except ValueError as e:
                 self.tela_restaurante.mostrar_mensagem(str(e))
+        elif escolha == "3":
+            self.tela_restaurante.mostrar_itens_cardapio(restaurante.cardapio.itens)
 
     def menu_restaurante(self):
         while True:
