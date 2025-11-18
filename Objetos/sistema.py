@@ -1,7 +1,7 @@
-from Objetos.Cliente import Cliente
-from Objetos.Funcionario import Funcionario
-from Objetos.Reserva import Reserva
-from Objetos.Restaurante import Restaurante
+from Objetos.cliente import Cliente
+from Objetos.funcionario import Funcionario
+from Objetos.reserva import Reserva
+from Objetos.restaurante import Restaurante
 
 class Sistema:
     def __init__(self):
@@ -12,7 +12,7 @@ class Sistema:
         self.restaurantes = []
         self.pagamentos = []
         self.logado = None
-        admin = Funcionario("admin", "admin123", "Administrador", "admin@example.com", True)
+        admin = Funcionario("admin", "admin", "Administrador", "admin@example.com", True)
         self.funcionarios.append(admin)
         self.usuarios.append(admin)
 
