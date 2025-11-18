@@ -1,4 +1,4 @@
-from Telas.AbstractTela import AbstractTela
+from Telas.abstract_tela import AbstractTela
 
 class TelaCliente(AbstractTela):
     def mostrar_menu(self):
@@ -28,3 +28,14 @@ class TelaCliente(AbstractTela):
 
     def pedir_id_reserva(self):
         return int(input("ID da Reserva: "))
+
+    def pedir_nome_restaurante(self):
+        return input("Nome do restaurante: ")
+
+    def mostrar_cardapio(self, itens):
+        if not itens:
+            self.mostrar_mensagem("Nenhum item no cardápio.")
+            return
+        print("--- Itens do Cardápio ---")
+        for item in itens:
+            print(f"- {item}")
