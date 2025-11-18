@@ -1,5 +1,5 @@
-from Objetos.Reserva import Reserva
-from Objetos.Pagamento import Pagamento
+from Objetos.reserva import Reserva
+from Objetos.pagamento import Pagamento
 
 class ControladorCliente:
     def __init__(self, sistema, tela_cliente):
@@ -7,23 +7,21 @@ class ControladorCliente:
         self.tela_cliente = tela_cliente
     
     def consultar_cardapio(self):
-        nome_restaurante = input("Nome do restaurante: ")
+        nome_restaurante = self.tela_cliente.pedir_nome_restaurante()
         restaurante = next((r for r in self.sistema.restaurantes if r.nome == nome_restaurante), None)
         if restaurante and restaurante.cardapio:
-            print("Itens do Cardápio:")
-            for item in restaurante.cardapio.listar_itens():
-                print(item)
+            itens = restaurante.cardapio.listar_itens()
+            self.tela_cliente.mostrar_cardapio(itens)
         else:
-            print("Restaurante não encontrado ou sem cardápio.")
+            self.tela_cliente.mostrar_mensagem("Restaurante não encontrado ou sem cardápio.")
 
     def efetuar_pagamento(self, cliente):
         reservas = self.sistema.listar_reservas_cliente(cliente.login)
         if not reservas:
-            print("Nenhuma reserva encontrada.")
+            self.tela_cliente.mostrar_mensagem("Nenhuma reserva encontrada.")
             return
-        for r in reservas:
-            print(f"ID: {r.id} - Detalhes: {r.detalhes} - Status: {r.status}")
-        id_reserva = int(input("ID da reserva para pagar: "))
+        self.tela_cliente.mostrar_reservas(reservas)
+        id_reserva = self.tela_cliente.pedir_id_reserva()
         reserva = self.sistema.buscar_reserva(id_reserva)
         if reserva and reserva.cliente_login == cliente.login:
             valor = float(input("Valor do pagamento(Ex: 20.00): "))
@@ -31,9 +29,9 @@ class ControladorCliente:
             pagamento = Pagamento(reserva.id, valor, metodo)
             pagamento.confirmar_pagamento()
             self.sistema.pagamentos.append(pagamento)
-            print("Pagamento confirmado!")
+            self.tela_cliente.mostrar_mensagem("Pagamento confirmado!")
         else:
-            print("Reserva não encontrada ou não pertence a você.")
+            self.tela_cliente.mostrar_mensagem("Reserva não encontrada ou não pertence a você.")
 
 
     def menu_cliente(self):
@@ -54,16 +52,20 @@ class ControladorCliente:
                 except (ValueError, TypeError):
                     self.tela_cliente.mostrar_mensagem("Número da mesa inválido.")
                     continue
-                # Armazenamos como tipos primitivos (int para mesa, str para nome do restaurante)
                 reserva = Reserva(cliente.login, mesa_numero, restaurante_obj.nome, detalhes, data_hora)
                 self.sistema.adicionar_reserva(reserva)
                 self.tela_cliente.mostrar_mensagem("Reserva criada com sucesso.")
             elif escolha == '3':
                 id_reserva = self.tela_cliente.pedir_id_reserva()
-                mesa_numero, restaurante, detalhes, data_hora = self.tela_cliente.pedir_dados_reserva()
+                mesa_input, restaurante, detalhes, data_hora = self.tela_cliente.pedir_dados_reserva()
                 reserva = self.sistema.buscar_reserva(id_reserva)
                 if reserva and reserva.cliente_login == cliente.login:
-                    reserva.atualizar(detalhes, data_hora)
+                    try:
+                        mesa_numero = int(mesa_input)
+                    except (ValueError, TypeError):
+                        self.tela_cliente.mostrar_mensagem("Número da mesa inválido. Alteração cancelada.")
+                        continue
+                    reserva.atualizar(mesa_numero=mesa_numero, restaurante=restaurante, detalhes=detalhes, data_hora=data_hora)
                     self.tela_cliente.mostrar_mensagem("Reserva atualizada.")
                 else:
                     self.tela_cliente.mostrar_mensagem("Reserva não encontrada ou não pertence a você.")
