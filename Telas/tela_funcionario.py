@@ -37,6 +37,15 @@ class TelaFuncionario(AbstractTela):
     def pedir_login(self):
         return input("Digite o login alvo: ")
 
+    def mostrar_reservas(self, reservas):
+        print("\n--- Todas as Reservas ---")
+        if not reservas:
+            print("Nenhuma reserva encontrada.")
+        else:
+            for r in reservas:
+                print(f"ID: {r.id} | Cliente: {r.cliente_login} | Mesa: {r.mesa_numero} | Restaurante: {r.restaurante} | Data/Hora: {r.data_hora} | Status: {r.status}")
+        input("Enter para continuar...")
+
     def mostrar_menu_relatorios(self):
         print("\n--- Relatórios ---")
         print("1 - Mesas Mais Reservadas")
