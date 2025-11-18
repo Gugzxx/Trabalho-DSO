@@ -2,72 +2,116 @@ from Objetos.cliente import Cliente
 from Objetos.funcionario import Funcionario
 from Objetos.reserva import Reserva
 from Objetos.restaurante import Restaurante
+from DAOs.cliente_dao import ClienteDAO
+from DAOs.funcionario_dao import FuncionarioDAO
+from DAOs.restaurante_dao import RestauranteDAO
+from DAOs.reserva_dao import ReservaDAO
 
 class Sistema:
     def __init__(self):
-        self.usuarios = []
-        self.clientes = []
-        self.funcionarios = []
-        self.reservas = []
-        self.restaurantes = []
-        self.pagamentos = []
+        self.__cliente_dao = ClienteDAO()
+        self.__funcionario_dao = FuncionarioDAO()
+        self.__restaurante_dao = RestauranteDAO()
+        self.__reserva_dao = ReservaDAO()
+        
+        self.pagamentos = [] 
         self.logado = None
-        admin = Funcionario("admin", "admin", "Administrador", "admin@example.com", True)
-        self.funcionarios.append(admin)
-        self.usuarios.append(admin)
+        
+        if not self.__funcionario_dao.get("admin"):
+            admin = Funcionario("admin", "admin", "Administrador", "admin@example.com", True)
+            self.__funcionario_dao.add(admin)
+
+    @property
+    def clientes(self):
+        return self.__cliente_dao.get_all()
+
+    @property
+    def funcionarios(self):
+        return self.__funcionario_dao.get_all()
+
+    @property
+    def restaurantes(self):
+        return self.__restaurante_dao.get_all()
+
+    @property
+    def reservas(self):
+        return self.__reserva_dao.get_all()
+    
+    @property
+    def usuarios(self):
+        return self.clientes + self.funcionarios
 
     def autenticar(self, login, senha, tipo):
-        for u in self.usuarios:
-            if u.login == login and u.senha == senha and u.tipo == tipo:
-                self.logado = u
-                return True
+        if tipo == "cliente":
+            usuario = self.__cliente_dao.get(login)
+        elif tipo == "funcionario":
+            usuario = self.__funcionario_dao.get(login)
+        else:
+            return False
+            
+        if usuario and usuario.senha == senha:
+            self.logado = usuario
+            return True
         return False
 
     def buscar_usuario(self, login):
-        for u in self.usuarios:
-            if u.login == login:
-                return u
-        return None
+        usuario = self.__funcionario_dao.get(login)
+        if usuario:
+            return usuario
+        return self.__cliente_dao.get(login)
 
     def cadastrar_cliente(self, login, senha, nome, email):
         if self.buscar_usuario(login):
             return False
         cliente = Cliente(login, senha, nome, email)
-        self.clientes.append(cliente)
-        self.usuarios.append(cliente)
+        self.__cliente_dao.add(cliente)
         return True
 
     def cadastrar_funcionario(self, login, senha, nome, email, is_admin=False):
         if self.buscar_usuario(login):
             return False
         funcionario = Funcionario(login, senha, nome, email, is_admin)
-        self.funcionarios.append(funcionario)
-        self.usuarios.append(funcionario)
+        self.__funcionario_dao.add(funcionario)
         return True
 
     def buscar_cliente(self, login):
-        for c in self.clientes:
-            if c.login == login:
-                return c
-        return None
+        return self.__cliente_dao.get(login)
 
     def buscar_funcionario(self, login):
-        for f in self.funcionarios:
-            if f.login == login:
-                return f
-        return None
+        return self.__funcionario_dao.get(login)
 
     def adicionar_reserva(self, reserva):
-        self.reservas.append(reserva)
+        self.__reserva_dao.add(reserva)
 
     def buscar_reserva(self, id_reserva):
-        for r in self.reservas:
-            if r.id == id_reserva:
-                return r
-        return None
+        return self.__reserva_dao.get(id_reserva)
 
     def listar_reservas_cliente(self, cliente_login):
-        return [r for r in self.reservas if r.cliente_login == cliente_login]
+        todas = self.__reserva_dao.get_all()
+        return [r for r in todas if r.cliente_login == cliente_login]
 
     def listar_todas_reservas(self):
-        return self.reservas
+        return self.__reserva_dao.get_all()
+
+    def adicionar_restaurante(self, restaurante):
+        self.__restaurante_dao.add(restaurante)
+        
+    def remover_cliente(self, cliente):
+        self.__cliente_dao.remove(cliente.login)
+        
+    def remover_funcionario(self, funcionario):
+        self.__funcionario_dao.remove(funcionario.login)
+        
+    def atualizar_reserva(self, reserva: Reserva):
+        if reserva and isinstance(reserva.id, int):
+            self.__reserva_dao.update(reserva.id, reserva)
+
+    def remover_reserva(self, reserva_or_id):
+        # aceita tanto o objeto Reserva quanto o id (int)
+        if isinstance(reserva_or_id, int):
+            self.__reserva_dao.remove(reserva_or_id)
+        else:
+            try:
+                self.__reserva_dao.remove(reserva_or_id.id)
+            except Exception:
+                return None
