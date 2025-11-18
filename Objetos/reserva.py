@@ -9,7 +9,7 @@ class Reserva:
         self.__restaurante = None
         self.__detalhes = None
         self.__data_hora = None
-        self.status = status or "pendente"  # Usar StatusReserva
+        self.status = status or "pendente"
 
         if isinstance(cliente_login, str):
             self.__cliente_login = cliente_login
