@@ -21,16 +21,15 @@ class ControladorRestaurante:
             item = self.tela_restaurante.pedir_nome_item()
             restaurante.cardapio.adicionar_item(item)
             self.tela_restaurante.mostrar_mensagem("Item adicionado.")
+            self.sistema.adicionar_restaurante(restaurante) 
         elif escolha == "2":
             item = self.tela_restaurante.pedir_nome_item()
             try:
                 restaurante.cardapio.remover_item(item)
                 self.tela_restaurante.mostrar_mensagem("Item removido.")
+                self.sistema.adicionar_restaurante(restaurante)
             except ValueError as e:
                 self.tela_restaurante.mostrar_mensagem(str(e))
-        elif escolha == "3":
-            itens = restaurante.cardapio.listar_itens() if restaurante.cardapio else []
-            self.tela_restaurante.mostrar_itens_cardapio(itens)
 
     def menu_restaurante(self):
         while True:
@@ -40,7 +39,7 @@ class ControladorRestaurante:
             elif escolha == "2":
                 nome, endereco = self.tela_restaurante.pedir_dados_restaurante()
                 restaurante = Restaurante(nome, endereco)
-                self.sistema.restaurantes.append(restaurante)
+                self.sistema.adicionar_restaurante(restaurante)
                 self.tela_restaurante.mostrar_mensagem("Restaurante adicionado.")
             elif escolha == "3":
                 self.gerenciar_cardapio()
@@ -49,4 +48,4 @@ class ControladorRestaurante:
             elif escolha == "0":
                 break
             else:
-                self.tela_restaurante.mostrar_mensagem("Opção inválida.")   
+                self.tela_restaurante.mostrar_mensagem("Opção inválida.")
