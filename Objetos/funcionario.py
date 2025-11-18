@@ -1,4 +1,4 @@
-from Objetos.Usuario import Usuario
+from Objetos.usuario import Usuario
 
 class Funcionario(Usuario):
     def __init__(self, login: str, senha: str, nome: str, email: str, is_admin=False):
