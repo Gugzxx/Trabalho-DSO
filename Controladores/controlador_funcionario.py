@@ -22,7 +22,6 @@ class ControladorFuncionario:
             if escolha == '1':
                 lista_clientes = self.sistema.clientes
                 opcao = self.tela_funcionario.mostrar_menu_gerenciar_clientes(lista_clientes)
-                
                 if opcao == 'l':
                     self.tela_funcionario.mostrar_mensagem("Lista de clientes exibida acima.")
                 elif opcao == 'a':
@@ -33,16 +32,13 @@ class ControladorFuncionario:
                         senha = input("Digite a senha: ")
                         nome = input("Digite o nome: ")
                         email = input("Digite o email: ")
-                        novo_cliente = Cliente(login, senha, nome, email)
-                        self.sistema.clientes.append(novo_cliente)
-                        self.sistema.usuarios.append(novo_cliente)
+                        self.sistema.cadastrar_cliente(login, senha, nome, email)
                         self.tela_funcionario.mostrar_mensagem("Cliente cadastrado.")
                 elif opcao == 'r':
                     login = self.tela_funcionario.pedir_login()
                     cliente = self.sistema.buscar_cliente(login)
                     if cliente:
-                        self.sistema.clientes.remove(cliente)
-                        self.sistema.usuarios.remove(cliente)
+                        self.sistema.remover_cliente(login)
                         self.tela_funcionario.mostrar_mensagem("Cliente removido.")
                     else:
                         self.tela_funcionario.mostrar_mensagem("Cliente não encontrado.")
@@ -59,23 +55,22 @@ class ControladorFuncionario:
                     dados = self.controlador_usuario.pegar_dados_novo_funcionario()
                     if dados:
                         login, senha, nome, email, is_admin = dados
-                        if self.sistema.buscar_funcionario(login):
-                            self.tela_funcionario.mostrar_mensagem("Login já existe.")
-                        else:
-                            novo_func = Funcionario(login, senha, nome, email, is_admin)
-                            self.sistema.funcionarios.append(novo_func)
-                            self.sistema.usuarios.append(novo_func)
+                        if self.sistema.cadastrar_funcionario(login, senha, nome, email, is_admin):
                             self.tela_funcionario.mostrar_mensagem("Funcionário cadastrado.")
+                        else:
+                            self.tela_funcionario.mostrar_mensagem("Login já existe.")
                 elif opcao == 'r':
                     login = self.tela_funcionario.pedir_login()
                     func = self.sistema.buscar_funcionario(login)
                     if func:
-                        self.sistema.funcionarios.remove(func)
-                        self.sistema.usuarios.remove(func)
+                        self.sistema.remover_funcionario(login)
                         self.tela_funcionario.mostrar_mensagem("Funcionário removido.")
+                    else:
+                        self.tela_funcionario.mostrar_mensagem("Funcionário não encontrado.")
             
             elif escolha == '3': 
-                self.controlador_reserva.listar_todas_reservas()
+                reservas = self.sistema.listar_todas_reservas()
+                self.tela_funcionario.mostrar_reservas(reservas)
             
             elif escolha == '4':
                 self.controlador_restaurante.menu_restaurante()
@@ -89,7 +84,7 @@ class ControladorFuncionario:
     def menu_relatorios(self):
         while True:
             escolha = self.tela_funcionario.mostrar_menu_relatorios()
-            reservas = self.controlador_reserva.reservas
+            reservas = self.sistema.listar_todas_reservas()
             
             if escolha == '1':
                 contagem = Counter((r.restaurante, r.mesa_numero) for r in reservas)
