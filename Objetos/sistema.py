@@ -96,11 +96,11 @@ class Sistema:
     def adicionar_restaurante(self, restaurante):
         self.__restaurante_dao.add(restaurante)
         
-    def remover_cliente(self, cliente):
-        self.__cliente_dao.remove(cliente.login)
+    def remover_cliente(self, login):  # CORREÇÃO: recebe login (string)
+        self.__cliente_dao.remove(login)
         
-    def remover_funcionario(self, funcionario):
-        self.__funcionario_dao.remove(funcionario.login)
+    def remover_funcionario(self, login):  # CORREÇÃO: recebe login (string)
+        self.__funcionario_dao.remove(login)
         
     def atualizar_reserva(self, reserva: Reserva):
         if reserva and isinstance(reserva.id, int):
