@@ -3,6 +3,17 @@ class ControladorUsuario:
         self.tela_usuario = tela_usuario
 
     def pegar_dados_novo_funcionario(self):
-        login, senha, nome, email = self.tela_usuario.pedir_dados_usuario()
+        dados = self.tela_usuario.pedir_dados_usuario()
+        if dados is None:  # Usuário clicou Cancelar
+            return None
+            
+        login, senha, nome, email = dados
+        
         is_admin = self.tela_usuario.pedir_is_admin()
+        if is_admin is None:  # Usuário clicou Cancelar
+            return None
+            
         return login, senha, nome, email, is_admin
+
+    def pedir_dados_usuario(self):
+        return self.tela_usuario.pedir_dados_usuario()
