@@ -24,7 +24,8 @@ class ControladorPrincipal:
         self.tela_restaurante = TelaRestaurante()
 
         self.controlador_usuario = ControladorUsuario(self.tela_usuario)
-        self.controlador_reserva = ControladorReserva(self.tela_reserva)
+
+        self.controlador_reserva = ControladorReserva(self.tela_reserva, self.sistema)
         self.controlador_cliente = ControladorCliente(self.sistema, self.tela_cliente)
         self.controlador_restaurante = ControladorRestaurante(self.sistema, self.tela_restaurante)
         self.controlador_funcionario = ControladorFuncionario(self.sistema,
