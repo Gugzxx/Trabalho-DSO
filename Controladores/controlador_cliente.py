@@ -9,7 +9,7 @@ class ControladorCliente:
     
     def consultar_cardapio(self):
         nome_restaurante = self.tela_cliente.pedir_nome_restaurante()
-        if nome_restaurante is None:  # Usuário clicou Cancelar
+        if nome_restaurante is None: 
             return
             
         restaurante = next((r for r in self.sistema.restaurantes if r.nome == nome_restaurante), None)
@@ -27,12 +27,11 @@ class ControladorCliente:
             
         self.tela_cliente.mostrar_reservas(reservas)
         id_reserva = self.tela_cliente.pedir_id_reserva()
-        if id_reserva is None:  # Usuário clicou Cancelar
+        if id_reserva is None:  
             return
             
         reserva = self.sistema.buscar_reserva(id_reserva)
         if reserva and reserva.cliente_login == cliente.login:
-            # CORREÇÃO: Tela gráfica para pagamento
             sg.ChangeLookAndFeel('DarkTeal4')
             layout = [
                 [sg.Text('--- EFETUAR PAGAMENTO ---', font=("Helvica", 25))],
@@ -67,13 +66,13 @@ class ControladorCliente:
         while True:
             escolha = self.tela_cliente.mostrar_menu()
             
-            if escolha == 1:  # Listar Reservas
+            if escolha == 1:  
                 reservas = self.sistema.listar_reservas_cliente(cliente.login)
                 self.tela_cliente.mostrar_reservas(reservas)
                 
-            elif escolha == 2:  # Criar Reserva
+            elif escolha == 2:  
                 dados = self.tela_cliente.pedir_dados_reserva()
-                if dados is None:  # Usuário clicou Cancelar
+                if dados is None:  
                     continue
                     
                 mesa_input, restaurante_nome, detalhes, data_hora = dados
@@ -92,13 +91,13 @@ class ControladorCliente:
                 self.sistema.adicionar_reserva(reserva)
                 self.tela_cliente.mostrar_mensagem("Reserva criada com sucesso.")
                 
-            elif escolha == 3:  # Alterar Reserva
+            elif escolha == 3:
                 id_reserva = self.tela_cliente.pedir_id_reserva()
-                if id_reserva is None:  # Usuário clicou Cancelar
+                if id_reserva is None: 
                     continue
                     
                 dados = self.tela_cliente.pedir_dados_reserva()
-                if dados is None:  # Usuário clicou Cancelar
+                if dados is None:
                     continue
                     
                 mesa_input, restaurante, detalhes, data_hora = dados
@@ -115,9 +114,9 @@ class ControladorCliente:
                 else:
                     self.tela_cliente.mostrar_mensagem("Reserva não encontrada ou não pertence a você.")
                     
-            elif escolha == 4:  # Excluir Reserva
+            elif escolha == 4:  
                 id_reserva = self.tela_cliente.pedir_id_reserva()
-                if id_reserva is None:  # Usuário clicou Cancelar
+                if id_reserva is None:  
                     continue
                     
                 reserva = self.sistema.buscar_reserva(id_reserva)
@@ -127,13 +126,13 @@ class ControladorCliente:
                 else:
                     self.tela_cliente.mostrar_mensagem("Reserva não encontrada ou não pertence a você.")
                     
-            elif escolha == 5:  # Consultar Cardápio
+            elif escolha == 5:  
                 self.consultar_cardapio()
                 
-            elif escolha == 6:  # Efetuar Pagamento
+            elif escolha == 6:  
                 self.efetuar_pagamento(cliente)
                 
-            elif escolha == 0:  # Logout
+            elif escolha == 0:  
                 self.sistema.logado = None
                 break
                 
