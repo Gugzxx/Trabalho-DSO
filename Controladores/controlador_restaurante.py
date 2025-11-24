@@ -1,5 +1,6 @@
 from Objetos.restaurante import Restaurante
 from Objetos.cardapio import Cardapio
+from Excecoes.restaurante_inexistente import RestauranteInexistenteException
 
 class ControladorRestaurante:
     def __init__(self, sistema, tela_restaurante):
@@ -12,8 +13,11 @@ class ControladorRestaurante:
             return
             
         restaurante = next((r for r in self.sistema.restaurantes if r.nome == nome_restaurante), None)
-        if not restaurante:
-            self.tela_restaurante.mostrar_mensagem("Restaurante não encontrado.")
+        try:
+            if not restaurante:
+                raise RestauranteInexistenteException()
+        except RestauranteInexistenteException as e:
+            self.tela_restaurante.mostrar_mensagem(str(e))
             return
             
         if not restaurante.cardapio:
@@ -38,7 +42,7 @@ class ControladorRestaurante:
             try:
                 restaurante.cardapio.remover_item(item)
                 self.tela_restaurante.mostrar_mensagem("Item removido.")
-            except ValueError as e:
+            except RestauranteInexistenteException as e:
                 self.tela_restaurante.mostrar_mensagem(str(e))
                 
         elif escolha == 3:  # Listar Itens
