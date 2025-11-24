@@ -3,6 +3,7 @@ from Objetos.cliente import Cliente
 from collections import Counter
 from datetime import datetime
 import FreeSimpleGUI as sg
+from Excecoes.cliente_inexistente import ClienteInexistenteException
 
 class ControladorFuncionario:
     def __init__(self, sistema, tela_funcionario, controlador_usuario, controlador_reserva, controlador_restaurante, controlador_cliente):
@@ -17,7 +18,6 @@ class ControladorFuncionario:
         return self.sistema.buscar_funcionario(login)
 
     def listar_clientes_detalhado(self):
-        """Mostra lista detalhada de clientes em uma janela separada"""
         clientes = self.sistema.clientes
         if not clientes:
             sg.popup("Nenhum cliente cadastrado.")
@@ -44,7 +44,6 @@ class ControladorFuncionario:
                     continue
                 
                 if opcao == 'l':  # Listar Clientes
-                    # CORREÇÃO: Mostrar lista detalhada em vez da mensagem
                     self.listar_clientes_detalhado()
                     
                 elif opcao == 'a':  # Adicionar Cliente
@@ -82,12 +81,11 @@ class ControladorFuncionario:
                     if login is None:  # Usuário clicou Cancelar
                         continue
                         
-                    cliente = self.sistema.buscar_cliente(login)
-                    if cliente:
+                    try:
                         self.sistema.remover_cliente(login)
                         self.tela_funcionario.mostrar_mensagem("Cliente removido.")
-                    else:
-                        self.tela_funcionario.mostrar_mensagem("Cliente não encontrado.")
+                    except ClienteInexistenteException as e:
+                        self.tela_funcionario.mostrar_mensagem(str(e))
                         
                 elif opcao == '0':  # Voltar
                     continue
