@@ -10,7 +10,6 @@ class TelaPrincipal:
             [sg.Text('=== SISTEMA DE RESERVAS ===', font=("Helvica", 25))],
             [sg.Text('Escolha sua opção', font=("Helvica", 15))],
             [sg.Radio('Login', "RD1", key='1')],
-            [sg.Radio('Cadastrar Cliente', "RD1", key='2')],
             [sg.Radio('Sair', "RD1", key='0')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
@@ -19,8 +18,6 @@ class TelaPrincipal:
         button, values = self.__window.Read()
         if values['1']:
             opcao = 1
-        elif values['2']:
-            opcao = 2
         elif values['0'] or button in (None, 'Cancelar'):
             opcao = 0
         else:
