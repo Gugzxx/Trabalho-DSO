@@ -32,7 +32,6 @@ class ControladorRestaurante:
                 
             restaurante.cardapio.adicionar_item(item)
             self.tela_restaurante.mostrar_mensagem("Item adicionado.")
-            # Não precisa chamar adicionar_restaurante novamente, já está na lista
             
         elif escolha == 2:  # Remover Item
             item = self.tela_restaurante.pedir_nome_item()
@@ -68,7 +67,7 @@ class ControladorRestaurante:
             elif escolha == 3:  # Gerenciar Cardápio
                 self.gerenciar_cardapio()
                 
-            elif escolha == 4:  # Excluir Restaurante (não implementado)
+            elif escolha == 4:  # Excluir Restaurante
                 self.tela_restaurante.mostrar_mensagem("Funcionalidade não implementada.")
                 
             elif escolha == 0:  # Voltar
